@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>权限与安全 - Claude Code 中文指南</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-primary: #1A1A1C; --bg-card: #242426; --accent: #C9A962; --text-primary: #F5F5F0; --text-secondary: #6E6E70; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26, 26, 28, 0.95); }
+    .logo { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-primary); }
+    .logo-icon { width: 24px; height: 24px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--bg-primary); font-weight: 700; }
+    .nav { display: flex; gap: 32px; }
+    .nav a { color: var(--text-secondary); text-decoration: none; font-size: 14px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; display: inline-flex; margin-bottom: 24px; }
+    .content { max-width: 900px; margin: 0 auto; padding: 120px 80px 80px; }
+    .page-title { font-size: 48px; font-weight: 600; margin-bottom: 16px; }
+    .page-title span { color: var(--accent); }
+    .page-desc { color: var(--text-secondary); font-size: 18px; margin-bottom: 48px; }
+    .section { margin-bottom: 48px; }
+    .section-title { font-size: 24px; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .section-title::before { content: ''; width: 4px; height: 24px; background: var(--accent); border-radius: 2px; }
+    .code-block { background: var(--bg-card); border-radius: 12px; padding: 20px; margin: 16px 0; overflow-x: auto; }
+    .code-block code { color: #E8DFD0; font-family: 'SF Mono', Monaco, monospace; font-size: 14px; }
+    .warn-box { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 12px; padding: 20px; margin: 20px 0; }
+    .warn-box h4 { color: #ef4444; margin-bottom: 8px; }
+    @media (max-width: 768px) { .content { padding: 100px 24px 40px; } .page-title { font-size: 32px; } }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="claude-code-guide.html" class="logo"><div class="logo-icon">C</div>Claude Code</a>
+    <nav class="nav">
+      <a href="claude-code-guide.html#features">技巧</a><a href="#">命令</a><a href="claude-code-guide.html#latest">更新</a>
+    </nav>
+  </header>
+  <main class="content">
+    <a href="claude-code-guide.html#features" class="back-link">← 返回全部技巧</a>
+    <h1 class="page-title">04 · <span>权限与安全</span></h1>
+    <p class="page-desc">了解沙箱设置、权限管理，确保安全使用。</p>
+
+    <section class="section">
+      <h2 class="section-title">沙箱模式</h2>
+      <p>Claude Code 默认在沙箱环境中运行，可通过配置文件调整权限：</p>
+      <div class="code-block">
+        <code><span class="code-comment"># ~/.claude/settings.json</span><br>
+{<br>
+  <span class="code-keyword">"sandbox"</span>: {<br>
+    <span class="code-keyword">"allow"</span>: [<span class="code-string">"read"</span>, <span class="code-string">"write"</span>],<br>
+    <span class="code-keyword">"deny"</span>: [<span class="code-string">"/path/to/sensitive"</span>]<br>
+  }<br>
+}</code>
+      </div>
+      <div class="warn-box">
+        <h4>⚠️ 安全提醒</h4>
+        <p>谨慎配置允许写入的目录，避免意外修改重要文件。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">allowRead 新增功能 (v2.1.77)</h2>
+      <p>在 denyRead 区域内重新允许读取特定目录：</p>
+      <div class="code-block">
+        <code><span class="code-comment"># 允许读取 node_modules 即使在 denyRead 区域</span><br>
+{<br>
+  <span class="code-keyword">"sandbox"</span>: {<br>
+    <span class="code-keyword">"denyRead"</span>: [<span class="code-string">"*"</span>],<br>
+    <span class="code-keyword">"allowRead"</span>: [<span class="code-string">"./src"</span>, <span class="code-string">"./node_modules"</span>]<br>
+  }<br>
+}</code>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">敏感数据保护</h2>
+      <ul style="list-style: none; padding: 0;">
+        <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ 避免在对话中直接输入 API 密钥</li>
+        <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ 使用环境变量存储敏感信息</li>
+        <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">✓ 定期检查配置文件权限</li>
+        <li style="padding: 12px 0;">✓ 谨慎使用 /copy 命令复制敏感内容</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

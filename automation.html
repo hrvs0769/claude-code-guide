@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>工作流自动化 - Claude Code 中文指南</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-primary: #1A1A1C; --bg-card: #242426; --accent: #C9A962; --text-primary: #F5F5F0; --text-secondary: #6E6E70; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26, 26, 28, 0.95); }
+    .logo { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-primary); }
+    .logo-icon { width: 24px; height: 24px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--bg-primary); font-weight: 700; }
+    .nav { display: flex; gap: 32px; }
+    .nav a { color: var(--text-secondary); text-decoration: none; font-size: 14px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; display: inline-flex; margin-bottom: 24px; }
+    .content { max-width: 900px; margin: 0 auto; padding: 120px 80px 80px; }
+    .page-title { font-size: 48px; font-weight: 600; margin-bottom: 16px; }
+    .page-title span { color: var(--accent); }
+    .page-desc { color: var(--text-secondary); font-size: 18px; margin-bottom: 48px; }
+    .section { margin-bottom: 48px; }
+    .section-title { font-size: 24px; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .section-title::before { content: ''; width: 4px; height: 24px; background: var(--accent); border-radius: 2px; }
+    .code-block { background: var(--bg-card); border-radius: 12px; padding: 20px; margin: 16px 0; overflow-x: auto; }
+    .code-block code { color: #E8DFD0; font-family: 'SF Mono', Monaco, monospace; font-size: 14px; }
+    .feature-card { background: var(--bg-card); border-radius: 12px; padding: 24px; margin: 16px 0; }
+    .feature-title { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+    .feature-desc { color: var(--text-secondary); margin-bottom: 12px; }
+    @media (max-width: 768px) { .content { padding: 100px 24px 40px; } .page-title { font-size: 32px; } }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="claude-code-guide.html" class="logo"><div class="logo-icon">C</div>Claude Code</a>
+    <nav class="nav">
+      <a href="claude-code-guide.html#features">技巧</a><a href="#">命令</a><a href="claude-code-guide.html#latest">更新</a>
+    </nav>
+  </header>
+  <main class="content">
+    <a href="claude-code-guide.html#features" class="back-link">← 返回全部技巧</a>
+    <h1 class="page-title">07 · <span>工作流自动化</span></h1>
+    <p class="page-desc">使用 Agent 模式和后台任务实现自动化。</p>
+
+    <section class="section">
+      <h2 class="section-title">Agent 模式</h2>
+      <p>Claude Code 支持长时间运行的 Agent 任务：</p>
+      <div class="code-block">
+        <code><span class="code-comment"># 启动 Agent 模式</span><br>
+<span class="code-keyword">claude</span> agent<br><br>
+<span class="code-comment"># 指定任务目标</span><br>
+<span class="code-keyword">claude</span> agent --task "重构整个项目的错误处理"</code>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">后台任务</h2>
+      <div class="feature-card">
+        <div class="feature-title">🔄 后台执行</div>
+        <p class="feature-desc">使用 & 在后台运行长时间任务，不阻塞对话。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">📊 任务监控</div>
+        <p class="feature-desc">使用 jobs 命令查看后台任务状态。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-title">🛑 任务控制</div>
+        <p class="feature-desc">fg 将后台任务切换到前台，kill 终止任务。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">自动化脚本</h2>
+      <p>创建自动化脚本实现常见工作流：</p>
+      <div class="code-block">
+        <code><span class="code-comment"># 自动化代码审查</span><br>
+<span class="code-keyword">claude</span> agent --task "审查 PR #123 并给出建议"</code>
+      </div>
+      <div class="code-block">
+        <code><span class="code-comment"># 批量文件处理</span><br>
+<span class="code-keyword">claude</span> agent --task "重命名所有 component 为 PascalCase"</code>
+      </div>
+    </section>
+
+    <div class="feature-card" style="border-left: 3px solid var(--accent);">
+      <div class="feature-title">💡 v2.1.77 注意事项</div>
+      <p class="feature-desc">后台 bash 任务输出超过 5GB 会自动终止，防止磁盘空间耗尽。</p>
+    </div>
+  </main>
+</body>
+</html>

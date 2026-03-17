@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>调试与排错 - Claude Code 中文指南</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-primary: #1A1A1C; --bg-card: #242426; --accent: #C9A962; --text-primary: #F5F5F0; --text-secondary: #6E6E70; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26, 26, 28, 0.95); }
+    .logo { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-primary); }
+    .logo-icon { width: 24px; height: 24px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--bg-primary); font-weight: 700; }
+    .nav { display: flex; gap: 32px; }
+    .nav a { color: var(--text-secondary); text-decoration: none; font-size: 14px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; display: inline-flex; margin-bottom: 24px; }
+    .content { max-width: 900px; margin: 0 auto; padding: 120px 80px 80px; }
+    .page-title { font-size: 48px; font-weight: 600; margin-bottom: 16px; }
+    .page-title span { color: var(--accent); }
+    .page-desc { color: var(--text-secondary); font-size: 18px; margin-bottom: 48px; }
+    .section { margin-bottom: 48px; }
+    .section-title { font-size: 24px; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .section-title::before { content: ''; width: 4px; height: 24px; background: var(--accent); border-radius: 2px; }
+    .code-block { background: var(--bg-card); border-radius: 12px; padding: 20px; margin: 16px 0; overflow-x: auto; }
+    .code-block code { color: #E8DFD0; font-family: 'SF Mono', Monaco, monospace; font-size: 14px; }
+    .issue-card { background: var(--bg-card); border-radius: 12px; padding: 20px; margin: 16px 0; border-left: 3px solid var(--accent); }
+    .issue-title { font-weight: 600; margin-bottom: 8px; }
+    .issue-solution { color: var(--text-secondary); }
+    @media (max-width: 768px) { .content { padding: 100px 24px 40px; } .page-title { font-size: 32px; } }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="claude-code-guide.html" class="logo"><div class="logo-icon">C</div>Claude Code</a>
+    <nav class="nav">
+      <a href="claude-code-guide.html#features">技巧</a><a href="#">命令</a><a href="claude-code-guide.html#latest">更新</a>
+    </nav>
+  </header>
+  <main class="content">
+    <a href="claude-code-guide.html#features" class="back-link">← 返回全部技巧</a>
+    <h1 class="page-title">06 · <span>调试与排错</span></h1>
+    <p class="page-desc">常见问题诊断与解决方案。</p>
+
+    <section class="section">
+      <h2 class="section-title">诊断命令</h2>
+      <div class="code-block">
+        <code><span class="code-comment"># 检查 Claude Code 状态</span><br>
+<span class="code-keyword">claude</span> doctor<br><br>
+<span class="code-comment"># 查看详细日志</span><br>
+<span class="code-keyword">claude</span> logs --verbose<br><br>
+<span class="code-comment"># 检查配置</span><br>
+<span class="code-keyword">claude</span> config list</code>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">常见问题</h2>
+
+      <div class="issue-card">
+        <div class="issue-title">❓ API 密钥无效</div>
+        <p class="issue-solution">运行 <code>claude config set api-key</code> 重新设置 API 密钥。</p>
+      </div>
+
+      <div class="issue-card">
+        <div class="issue-title">❓ 连接超时</div>
+        <p class="issue-solution">检查网络连接，或使用 <code>claude config set proxy</code> 配置代理。</p>
+      </div>
+
+      <div class="issue-card">
+        <div class="issue-title">❓ 会话中断</div>
+        <p class="issue-solution">使用 <code>claude sessions list</code> 查看历史会话，用 <code>/resume</code> 恢复。</p>
+      </div>
+
+      <div class="issue-card">
+        <div class="issue-title">❓ 权限被拒绝</div>
+        <p class="issue-solution">检查 ~/.claude/settings.json 中的沙箱配置是否正确。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">日志分析</h2>
+      <p>日志文件位于 <code>~/.claude/logs/</code> 目录。使用以下命令查看：</p>
+      <div class="code-block">
+        <code><span class="code-comment"># 查看最近 100 行日志</span><br>
+tail -n 100 ~/.claude/logs/claude.log</code>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

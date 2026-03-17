@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>版本更新 - Claude Code 中文指南</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-primary: #1A1A1C; --bg-card: #242426; --accent: #C9A962; --text-primary: #F5F5F0; --text-secondary: #6E6E70; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26, 26, 28, 0.95); }
+    .logo { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-primary); }
+    .logo-icon { width: 24px; height: 24px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--bg-primary); font-weight: 700; }
+    .nav { display: flex; gap: 32px; }
+    .nav a { color: var(--text-secondary); text-decoration: none; font-size: 14px; }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; display: inline-flex; margin-bottom: 24px; }
+    .content { max-width: 900px; margin: 0 auto; padding: 120px 80px 80px; }
+    .page-title { font-size: 48px; font-weight: 600; margin-bottom: 16px; }
+    .page-title span { color: var(--accent); }
+    .page-desc { color: var(--text-secondary); font-size: 18px; margin-bottom: 48px; }
+    .section { margin-bottom: 48px; }
+    .section-title { font-size: 24px; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .section-title::before { content: ''; width: 4px; height: 24px; background: var(--accent); border-radius: 2px; }
+    .version-card { background: var(--bg-card); border-radius: 12px; padding: 24px; margin: 16px 0; }
+    .version-badge { display: inline-block; background: var(--accent); color: var(--bg-primary); padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+    .version-date { color: var(--text-secondary); font-size: 14px; margin-bottom: 16px; }
+    .changelog-item { display: flex; gap: 12px; padding: 8px 0; }
+    .changelog-icon { color: var(--accent); }
+    .code-block { background: var(--bg-card); border-radius: 12px; padding: 20px; margin: 16px 0; }
+    .code-block code { color: #E8DFD0; font-family: 'SF Mono', Monaco, monospace; font-size: 14px; }
+    .tip-box { background: rgba(201, 169, 98, 0.1); border: 1px solid rgba(201, 169, 98, 0.2); border-radius: 12px; padding: 20px; margin: 20px 0; }
+    @media (max-width: 768px) { .content { padding: 100px 24px 40px; } .page-title { font-size: 32px; } }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="claude-code-guide.html" class="logo"><div class="logo-icon">C</div>Claude Code</a>
+    <nav class="nav">
+      <a href="claude-code-guide.html#features">技巧</a><a href="#">命令</a><a href="claude-code-guide.html#latest">更新</a>
+    </nav>
+  </header>
+  <main class="content">
+    <a href="claude-code-guide.html#features" class="back-link">← 返回全部技巧</a>
+    <h1 class="page-title">08 · <span>版本更新</span></h1>
+    <p class="page-desc">了解最新版本的新功能与迁移指南。</p>
+
+    <section class="section">
+      <h2 class="section-title">v2.1.77 最新特性</h2>
+      <div class="version-card">
+        <span class="version-badge">最新版本</span>
+        <p class="version-date">2025 年更新</p>
+
+        <div class="changelog-item">
+          <span class="changelog-icon">✦</span>
+          <span>输出 token 上限提高到 128k，支持更长上下文的对话</span>
+        </div>
+        <div class="changelog-item">
+          <span class="changelog-icon">✦</span>
+          <span>新增 allowRead 沙箱设置，可在 denyRead 区域内重新允许读取</span>
+        </div>
+        <div class="changelog-item">
+          <span class="changelog-icon">✦</span>
+          <span>/copy 命令支持索引 /copy N 复制倒数第 N 条回复</span>
+        </div>
+        <div class="changelog-item">
+          <span class="changelog-icon">✦</span>
+          <span>后台 bash 任务输出超过 5GB 自动终止，防止磁盘爆满</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">更新 Claude Code</h2>
+      <div class="code-block">
+        <code><span class="code-comment"># npm 更新</span><br>
+<span class="code-keyword">npm</span> update -g @anthropic-ai/claude-code<br><br>
+<span class="code-comment"># 或 pnpm 更新</span><br>
+<span class="code-keyword">pnpm</span> update -g @anthropic-ai/claude-code<br><br>
+<span class="code-comment"># 查看版本</span><br>
+<span class="code-keyword">claude</span> --version</code>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">版本迁移</h2>
+      <div class="version-card">
+        <div class="version-title" style="font-weight: 600; margin-bottom: 8px;">/fork → /branch 重命名</div>
+        <p style="color: var(--text-secondary);">v2.1.77 将 /fork 命令重命名为 /branch，功能不变。</p>
+      </div>
+    </section>
+
+    <div class="tip-box">
+      <strong>💡 保持更新</strong>
+      <p>建议定期检查更新，新版本通常包含性能优化和新功能。</p>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>核心命令 - Claude Code 中文指南</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-primary: #1A1A1C; --bg-card: #242426; --accent: #C9A962; --text-primary: #F5F5F0; --text-secondary: #6E6E70; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26, 26, 28, 0.95); backdrop-filter: blur(10px); }
+    .logo { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-primary); }
+    .logo-icon { width: 24px; height: 24px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--bg-primary); font-weight: 700; }
+    .nav { display: flex; align-items: center; gap: 32px; }
+    .nav a { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav a:hover { color: var(--text-primary); }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+    .back-link:hover { text-decoration: underline; }
+    .content { max-width: 900px; margin: 0 auto; padding: 120px 80px 80px; }
+    .page-title { font-size: 48px; font-weight: 600; margin-bottom: 16px; }
+    .page-title span { color: var(--accent); }
+    .page-desc { color: var(--text-secondary); font-size: 18px; margin-bottom: 48px; }
+    .section { margin-bottom: 48px; }
+    .section-title { font-size: 24px; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .section-title::before { content: ''; width: 4px; height: 24px; background: var(--accent); border-radius: 2px; }
+    .command-card { background: var(--bg-card); border-radius: 12px; padding: 24px; margin: 16px 0; }
+    .command-name { font-size: 20px; font-weight: 600; color: var(--accent); margin-bottom: 8px; font-family: 'SF Mono', Monaco, monospace; }
+    .command-desc { color: var(--text-secondary); margin-bottom: 12px; }
+    .command-example { background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; font-family: 'SF Mono', Monaco, monospace; font-size: 14px; }
+    .tip-box { background: rgba(201, 169, 98, 0.1); border: 1px solid rgba(201, 169, 98, 0.2); border-radius: 12px; padding: 20px; margin: 20px 0; }
+    @media (max-width: 768px) {
+      .header { padding: 16px 24px; }
+      .nav { display: none; }
+      .content { padding: 100px 24px 40px; }
+      .page-title { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="claude-code-guide.html" class="logo"><div class="logo-icon">C</div>Claude Code</a>
+    <nav class="nav">
+      <a href="claude-code-guide.html#features">技巧</a><a href="#">命令</a><a href="claude-code-guide.html#latest">更新</a>
+    </nav>
+  </header>
+  <main class="content">
+    <a href="claude-code-guide.html#features" class="back-link">← 返回全部技巧</a>
+    <h1 class="page-title">02 · <span>核心命令</span></h1>
+    <p class="page-desc">掌握所有斜杠命令，高效使用 Claude Code。</p>
+
+    <section class="section">
+      <h2 class="section-title">常用命令</h2>
+
+      <div class="command-card">
+        <div class="command-name">/help</div>
+        <p class="command-desc">显示所有可用命令和快捷键</p>
+        <div class="command-example">/help</div>
+      </div>
+
+      <div class="command-card">
+        <div class="command-name">/resume 或 /r</div>
+        <p class="command-desc">恢复最近中断的会话</p>
+        <div class="command-example">/resume</div>
+      </div>
+
+      <div class="command-card">
+        <div class="command-name">/branch 或 /b</div>
+        <p class="command-desc">从当前会话创建新分支（之前叫 /fork）</p>
+        <div class="command-example">/branch my-feature</div>
+      </div>
+
+      <div class="command-card">
+        <div class="command-name">/review-pr</div>
+        <p class="command-desc">审查 GitHub pull request</p>
+        <div class="command-example">/review-pr 123</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">会话命令</h2>
+
+      <div class="command-card">
+        <div class="command-name">/sessions</div>
+        <p class="command-desc">列出所有会话</p>
+        <div class="command-example">/sessions</div>
+      </div>
+
+      <div class="command-card">
+        <div class="command-name">/switch</div>
+        <p class="command-desc">切换到另一个会话</p>
+        <div class="command-example">/switch session-id</div>
+      </div>
+    </section>
+
+    <div class="tip-box">
+      <strong>💡 技巧：</strong> 直接在消息前加斜杠 / 即可触发命令自动补全。
+    </div>
+  </main>
+</body>
+</html>

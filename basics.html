@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>基础入门 - Claude Code 中文指南</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #1A1A1C;
+      --bg-card: #242426;
+      --accent: #C9A962;
+      --text-primary: #F5F5F0;
+      --text-secondary: #6E6E70;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 80px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(26, 26, 28, 0.95); backdrop-filter: blur(10px); }
+    .logo { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+    .logo-icon { width: 24px; height: 24px; background: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--bg-primary); font-weight: 700; }
+    .nav { display: flex; align-items: center; gap: 32px; }
+    .nav a { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav a:hover { color: var(--text-primary); }
+    .back-link { color: var(--accent); text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+    .back-link:hover { text-decoration: underline; }
+    .content { max-width: 900px; margin: 0 auto; padding: 120px 80px 80px; }
+    .page-title { font-size: 48px; font-weight: 600; margin-bottom: 16px; }
+    .page-title span { color: var(--accent); }
+    .page-desc { color: var(--text-secondary); font-size: 18px; margin-bottom: 48px; }
+    .section { margin-bottom: 48px; }
+    .section-title { font-size: 24px; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .section-title::before { content: ''; width: 4px; height: 24px; background: var(--accent); border-radius: 2px; }
+    .code-block { background: var(--bg-card); border-radius: 12px; padding: 20px; margin: 16px 0; overflow-x: auto; }
+    .code-block code { color: #E8DFD0; font-family: 'SF Mono', Monaco, monospace; font-size: 14px; line-height: 1.6; }
+    .code-comment { color: #6E6E70; }
+    .code-keyword { color: #C9A962; }
+    .code-string { color: #8BC34A; }
+    .feature-list { list-style: none; }
+    .feature-list li { padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 16px; }
+    .feature-list li::before { content: '→'; color: var(--accent); }
+    .tip-box { background: rgba(201, 169, 98, 0.1); border: 1px solid rgba(201, 169, 98, 0.2); border-radius: 12px; padding: 20px; margin: 20px 0; }
+    .tip-box h4 { color: var(--accent); margin-bottom: 8px; }
+    @media (max-width: 768px) {
+      .header { padding: 16px 24px; }
+      .nav { display: none; }
+      .content { padding: 100px 24px 40px; }
+      .page-title { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="claude-code-guide.html" class="logo">
+      <div class="logo-icon">C</div>
+      Claude Code
+    </a>
+    <nav class="nav">
+      <a href="claude-code-guide.html#features">技巧</a>
+      <a href="#">命令</a>
+      <a href="claude-code-guide.html#latest">更新</a>
+    </nav>
+  </header>
+
+  <main class="content">
+    <a href="claude-code-guide.html#features" class="back-link">← 返回全部技巧</a>
+
+    <h1 class="page-title">01 · <span>基础入门</span></h1>
+    <p class="page-desc">从零开始，掌握 Claude Code 的安装、配置和基本使用方法。</p>
+
+    <section class="section">
+      <h2 class="section-title">安装 Claude Code</h2>
+      <p>Claude Code 可以通过多种方式安装，推荐使用 npm 全局安装：</p>
+      <div class="code-block">
+        <code><span class="code-comment"># 使用 npm 安装</span><br>
+<span class="code-keyword">npm</span> install -g @anthropic-ai/claude-code<br><br>
+<span class="code-comment"># 或使用 pnpm</span><br>
+<span class="code-keyword">pnpm</span> add -g @anthropic-ai/claude-code</code>
+      </div>
+      <div class="tip-box">
+        <h4>💡 提示</h4>
+        <p>需要 Node.js 18+ 版本才能运行 Claude Code。安装前请确认已安装 Node.js。</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">配置 API 密钥</h2>
+      <p>首次使用前，需要配置 Anthropic API 密钥：</p>
+      <div class="code-block">
+        <code><span class="code-comment"># 设置 API 密钥</span><br>
+<span class="code-keyword">claude</span> config set api-key <span class="code-string">your-api-key-here</span></code>
+      </div>
+      <p>获取 API 密钥：</p>
+      <ul class="feature-list">
+        <li>访问 <a href="https://console.anthropic.com" style="color: var(--accent);" target="_blank">Anthropic Console</a></li>
+        <li>创建新 API 密钥并妥善保存</li>
+        <li>将密钥粘贴到配置命令中</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">开始对话</h2>
+      <div class="code-block">
+        <code><span class="code-comment"># 启动交互式对话</span><br>
+<span class="code-keyword">claude</span></code>
+      </div>
+      <p>启动后直接输入你的问题或需求，Claude Code 会分析并执行。</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">会话管理</h2>
+      <ul class="feature-list">
+        <li><strong>查看会话列表：</strong> claude sessions list</li>
+        <li><strong>恢复会话：</strong> claude session resume [会话ID]</li>
+        <li><strong>新建会话：</strong> claude session new</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
